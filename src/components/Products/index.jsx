@@ -1,5 +1,5 @@
-import ProductCard from "./ProductCard";
-import "./products.css";
+import ProductCard from "../ProductCard";
+import "./style.css";
 import {
   Box,
   Card,

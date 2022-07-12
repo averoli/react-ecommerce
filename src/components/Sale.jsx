@@ -2,7 +2,11 @@
 
 const Sale = () => {
   return (
-    <div>Sale</div>
+    <div>Sale
+      hsjdlfkghlsjdfhlkg
+      adfjgksñdkdjfg
+      dfhgjklksjdg
+    </div>
   )
 }
 

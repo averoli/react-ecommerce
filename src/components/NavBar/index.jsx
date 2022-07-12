@@ -35,28 +35,13 @@ const pages = ["SALE", "SKINCARE", "MAKEUP", "HAIR", "PERFUME"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   let activeStyle = {
     textDecoration: "underline",
   };
 
-  const cart = {
-    
-  }
+
   return (
     <AppBar position="fixed" color="transparent">
       <Container maxWidth="xl">
