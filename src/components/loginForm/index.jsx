@@ -1,11 +1,23 @@
 import { useState } from "react";
-import { Box, Button, TextField } from "@mui/material/";
+import  { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  TextField,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+} from "@mui/material/";
+
 import "./style.css";
 
 const loginData = {
   email: "volha@gmail.com",
   password: "123456",
 };
+
+
 
 const LoginForm = () => {
   const [user, setUser] = useState({
@@ -14,6 +26,18 @@ const LoginForm = () => {
   });
 
   const [error, setError] = useState(false);
+  const [open, setOpen] = useState(true);
+
+  let navigate = useNavigate();
+
+  const handleClose = () => {
+    setOpen(false);
+    setUser({
+      ...user,
+      email: "",
+      password: "",
+    });
+  };
 
   const handleChange = (e) => {
     setUser({
@@ -28,7 +52,7 @@ const LoginForm = () => {
       user.email === loginData.email &&
       user.password === loginData.password
     ) {
-      console.log("true");
+      navigate("/", {replace: true})
     } else {
       setError(true);
     }
@@ -65,11 +89,28 @@ const LoginForm = () => {
         Login
       </Button>
       {error ? (
-        <div>
-          <p>OOOPS!</p>
-          <p>The password does not match the e-mail address given.</p>
-          <p>Please try again</p>
-        </div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>
+            <DialogContentText
+              id="alert-dialog-description"
+              className="dialog_content_text"
+            >
+              <p>OOOPS!</p>
+              <p>The password does not match the e-mail address given.</p>
+              <p className="dialog_text">Please try again</p>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
       ) : undefined}
     </Box>
   );
