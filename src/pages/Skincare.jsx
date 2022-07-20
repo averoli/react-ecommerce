@@ -1,9 +1,9 @@
-
+import Slider from "../components/slider"
 
 const Skincare = () => {
   return (
     <>
-      <div>Skincare</div>
+      <Slider />
     </>
   );
 };

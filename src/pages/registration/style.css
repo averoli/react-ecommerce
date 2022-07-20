@@ -1,0 +1,12 @@
+.box_signup {
+    background: 
+    linear-gradient(
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url("https://images.unsplash.com/photo-1584515453937-c00929e621d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80")
+        center; 
+        /* https://images.unsplash.com/photo-1611849362103-5c99622adf18?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3132&q=80    */
+        /* https://images.unsplash.com/photo-1584515453937-c00929e621d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80 */
+        background-size: cover;
+  }
