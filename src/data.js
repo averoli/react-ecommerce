@@ -2,7 +2,7 @@ import img_1 from '../src/assets/img/img_1.jpeg'
 import img_2 from '../src/assets/img/img_2.jpeg'
 import img_3 from '../src/assets/img/img_3.jpeg'
 
-const products = [
+const DATA = [
   {
     id: 100,
     title: "Nike Runner 2000",
@@ -47,4 +47,4 @@ const products = [
   }
 ];
 
-export default products;
+export default DATA;

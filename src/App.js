@@ -1,15 +1,46 @@
-import { Outlet } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+
+import Sale from "./pages/Sale.jsx";
+import Skincare from "./pages/Skincare";
+import Login from "./pages/login/index";
+import ShoppingBag from "./pages/ShoppingBag.jsx";
+import RegistrForm from "./pages/registration/index.jsx";
+import NavBar from "./components/NavBar/index.jsx";
+import Products from "./pages/Products/index.jsx";
+
 import "./App.css";
 
-import NavBar from "./components/NavBar/index.jsx";
-
 function App() {
+  const url =
+    "https://my-json-server.typicode.com/averoli/e-commerce-db/products";
 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);
+        setData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
-    <>
-      <NavBar />
-      <Outlet />
-    </>
+    <Routes>
+      <Route path="login" element={<Login />}></Route>
+      <Route path="signup" element={<RegistrForm />} />
+      <Route path="/" element={<NavBar />}>
+        <Route index element={<Products products={data} />} />
+        <Route path="sale" element={<Sale />} />
+        <Route path="protected" element={<Skincare />} />
+        <Route path="shoppingbag" element={<ShoppingBag />} />
+      </Route>
+    </Routes>
   );
 }
 

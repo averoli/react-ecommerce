@@ -15,27 +15,20 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 
 import "./productCard.css";
 
-const Product = ({ product }) => {
-  const { id, image_link, title, name, rating, price } = product;
-  const [isWish, setIsWish] = useState(false);
-  const [cartProducts, setCartProducts] = useState([]);
-  const addToCart = ({ product }) => {
-    const { id, title, price } = product;
-    console.log(id, title, price);
-    // const existProduct = cartProducts.find((item) => item.id === product.id);
-
-    localStorage.setItem("cart", "hoho");
-  };
-
-  const addToWishes = () => {
-    setIsWish((prevState) => !prevState);
-  };
-
+const Product = ({
+  image,
+  name,
+  rating,
+  price,
+  addToCart,
+  addToWishes,
+  isWish,
+}) => {
   return (
     <Card sx={{ maxWidth: 300, paddingBottom: "1rem" }}>
-      <CardMedia component="img" height="194" image={image_link} alt={title} />
+      <CardMedia component="img" height="300" image={image} alt={name} />
       <CardContent className="card_content">
-        <Typography variant="p" color="text.secondary">
+        <Typography variant="h6" color="text.secondary">
           {name}
         </Typography>
         <Rating
