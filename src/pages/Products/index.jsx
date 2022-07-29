@@ -4,6 +4,7 @@ import "./style.css";
 import { Box, Container, Grid } from "@mui/material";
 
 const Products = ({ products }) => {
+
   const loadCartProducts = () => {
     const items = localStorage.getItem("cart");
     if (items) {
@@ -48,7 +49,9 @@ const Products = ({ products }) => {
   }
 
   const handleAddToWishes = (id) => {
-    setIsWish((prevState) => !prevState);
+    console.log(id);
+    setIsWish(prevState => !prevState);
+    console.log(isWish);
   };
 
   return (

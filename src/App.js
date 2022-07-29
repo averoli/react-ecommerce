@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Sale from "./pages/Sale.jsx";
 import Skincare from "./pages/Skincare";
 import Login from "./pages/login/index";
 import ShoppingBag from "./pages/ShoppingBag.jsx";
 import RegistrForm from "./pages/registration/index.jsx";
 import NavBar from "./components/NavBar/index.jsx";
 import Products from "./pages/Products/index.jsx";
+import { CartContext } from "./CartContex";
 
 import "./App.css";
 
@@ -30,17 +30,20 @@ function App() {
     };
     fetchData();
   }, []);
+
+
   return (
-    <Routes>
-      <Route path="login" element={<Login />}></Route>
-      <Route path="signup" element={<RegistrForm />} />
-      <Route path="/" element={<NavBar />}>
-        <Route index element={<Products products={data} />} />
-        <Route path="sale" element={<Sale />} />
-        <Route path="protected" element={<Skincare />} />
-        <Route path="shoppingbag" element={<ShoppingBag />} />
-      </Route>
-    </Routes>
+    <CartContext>
+      <Routes>
+        <Route path="login" element={<Login />}></Route>
+        <Route path="signup" element={<RegistrForm />} />
+        <Route path="/" element={<NavBar />}>
+          <Route index element={<Products products={data} />} />
+          <Route path="protected" element={<Skincare />} />
+          <Route path="shoppingbag" element={<ShoppingBag />} />
+        </Route>
+      </Routes>
+    </CartContext>
   );
 }
 

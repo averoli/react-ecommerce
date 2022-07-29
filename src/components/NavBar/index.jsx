@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-
+import { useContext } from "react";
+import { shoppingBagContext } from "../../CartContex";
 import IconBag from "../iconBag/index";
 import {
   AppBar,
@@ -19,7 +20,9 @@ import logo_face from "../../assets/icons/logo_face.jpg";
 import "./style.css";
 
 const NavBar = () => {
-  const pages = ["SALE", "protected", "MAKEUP", "HAIR", "PERFUME"];
+  const pages = ["protected", "MAKEUP", "HAIR", "PERFUME"];
+
+  const { cart, setCart } = useContext(shoppingBagContext);
 
   let activeStyle = {
     textDecoration: "underline",
@@ -67,6 +70,7 @@ const NavBar = () => {
               sx={{ mx: 4 }}
               onClick={openShoppingCart}
             >
+              {cart}
               <IconBag />
             </IconButton>
 
