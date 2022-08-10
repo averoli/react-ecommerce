@@ -1,15 +1,18 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Skincare from "./pages/Skincare";
 import Login from "./pages/login/index";
 import ShoppingBag from "./pages/ShoppingBag.jsx";
 import RegistrForm from "./pages/registration/index.jsx";
 import NavBar from "./components/NavBar/index.jsx";
 import Products from "./pages/Products/index.jsx";
+import ProductPage from "./pages/ProductPage/ProductPage";
+import Home from "./pages/Home";
 import { CartContext } from "./CartContex";
 
 import "./App.css";
+
+export const currency = "€";
 
 function App() {
   const url =
@@ -22,7 +25,6 @@ function App() {
       try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
         setData(data);
       } catch (error) {
         console.log(error);
@@ -31,15 +33,17 @@ function App() {
     fetchData();
   }, []);
 
-
   return (
     <CartContext>
       <Routes>
+        <Route path="*" element={<div>404 NOT FOUND</div>} />
         <Route path="login" element={<Login />}></Route>
         <Route path="signup" element={<RegistrForm />} />
         <Route path="/" element={<NavBar />}>
-          <Route index element={<Products products={data} />} />
-          <Route path="protected" element={<Skincare />} />
+          <Route index element={<Home />} />
+          <Route path="shop" element={<Products products={data} />} />
+          <Route path="shop/:id" element={<ProductPage />} />
+          <Route path="home" element={<Home />} />
           <Route path="shoppingbag" element={<ShoppingBag />} />
         </Route>
       </Routes>

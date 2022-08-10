@@ -1,15 +1,18 @@
 import * as React from "react";
-import { Outlet } from "react-router-dom";
 import { useContext } from "react";
+import { Outlet } from "react-router-dom";
+
 import { shoppingBagContext } from "../../CartContex";
 import IconBag from "../iconBag/index";
 import {
   AppBar,
   Avatar,
+  Badge,
   Box,
   Container,
   IconButton,
   Toolbar,
+  Typography,
 } from "@mui/material/";
 
 import { NavLink, useNavigate } from "react-router-dom";
@@ -20,10 +23,10 @@ import logo_face from "../../assets/icons/logo_face.jpg";
 import "./style.css";
 
 const NavBar = () => {
-  const pages = ["protected", "MAKEUP", "HAIR", "PERFUME"];
+  const pages = ["home", "shop", "about", "contact us"];
 
-  const { cart, setCart } = useContext(shoppingBagContext);
-
+  const { cart } = useContext(shoppingBagContext);
+  console.log(cart);
   let activeStyle = {
     textDecoration: "underline",
   };
@@ -40,13 +43,12 @@ const NavBar = () => {
 
   return (
     <>
-      <AppBar position="fixed" color="inherit">
+      <AppBar position="sticky" color="inherit">
         <Container maxWidth="xl">
           <Toolbar>
             <IconButton onClick={openMainPage}>
               <Avatar alt="Logo Lips" src={logo_lips} />
             </IconButton>
-
             <Box
               sx={{
                 flexGrow: 1,
@@ -70,11 +72,13 @@ const NavBar = () => {
               sx={{ mx: 4 }}
               onClick={openShoppingCart}
             >
-              {cart}
-              <IconBag />
+              <Badge color="secondary" badgeContent={cart}>
+                <IconBag />
+              </Badge>
             </IconButton>
 
             <IconButton>
+              <Typography margin={1}>Welcome, Ahlov!</Typography>
               <Avatar alt="Logo face" src={logo_face} />
             </IconButton>
           </Toolbar>

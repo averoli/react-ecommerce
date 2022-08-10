@@ -8,7 +8,7 @@ A demo app to learn the basics of React and to create a shopping cart using hook
 
 - [Getting Started](#getting-started)
 - [Instructions](#instructions)
-- [Extra steps 💯](#extra-steps-)
+- [Extra steps 💯](#extra-steps.,. nbvc b b -)
 - [Requirements](#requirements)
 - [Available Scripts](#available-scripts)
 - [Author](#author)

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import useCounter from "../hook/useCounter";
 import { shoppingBagContext } from "../CartContex";
 
-import { AppBar, Box, Button, Container, Grid, Paper } from "@mui/material";
+import { Box, Button, Container, Grid, Paper } from "@mui/material";
 
 import { v4 as uuid } from "uuid";
 
@@ -11,17 +11,13 @@ const ShoppingBag = ({ value = 0 }) => {
   const { addValue, substractValue, resetValue } = useCounter(value);
   const { cart, setCart } = useContext(shoppingBagContext);
 
-  console.log(items.length);
-  console.log(cart);
-
   useEffect(() => {
     const fetchData = () => {
       const data = JSON.parse(localStorage.getItem("cart"));
       setItems(data);
-      setCart(6);
     };
     fetchData();
-  }, []);
+  }, [cart]);
 
   const handleDelete = (id) => {
     const newItems = items.filter((item) => item.id !== id);
@@ -106,7 +102,7 @@ const ShoppingBag = ({ value = 0 }) => {
               m: 2,
             }}
           >
-            <Box>Total: {items.length}</Box>
+            <Box>Total: {cart}</Box>
             <Box> €</Box>
           </Paper>
         </Grid>

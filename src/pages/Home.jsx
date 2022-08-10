@@ -1,6 +1,6 @@
 import Slider from "../components/slider"
 
-const Skincare = () => {
+const Home = () => {
   return (
     <>
       <Slider />
@@ -8,4 +8,4 @@ const Skincare = () => {
   );
 };
 
-export default Skincare;
+export default Home;

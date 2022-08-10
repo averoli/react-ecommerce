@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
+
 import Product from "../productCard/Product";
 import "./style.css";
 import { Box, Container, Grid } from "@mui/material";
 
 const Products = ({ products }) => {
-
   const loadCartProducts = () => {
     const items = localStorage.getItem("cart");
+
     if (items) {
       try {
         return JSON.parse(items);
@@ -17,9 +18,12 @@ const Products = ({ products }) => {
       return [];
     }
   };
+
   const [isWish, setIsWish] = useState(false);
   const [wishList, setWishList] = useState([]);
   const [cartProducts, setCartProducts] = useState(() => loadCartProducts());
+  const [wishProducts, setWishProducts] = useState([]);
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -28,7 +32,6 @@ const Products = ({ products }) => {
 
   function handleAddToCart(product) {
     let existProduct = cartProducts.find((item) => item.id === product.id);
-
     if (existProduct) {
       const items = cartProducts.map((item) => {
         if (item.id === product.id) {
@@ -50,37 +53,30 @@ const Products = ({ products }) => {
 
   const handleAddToWishes = (id) => {
     console.log(id);
-    setIsWish(prevState => !prevState);
+    setIsWish((prevState) => !prevState);
     console.log(isWish);
   };
 
   return (
-    <Container>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Box sx={{ flexGrow: 1 }}>
-              <h2>Products</h2>
-              <Grid container spacing={3}>
-                {loading ? "Loading..." : null}
-                {products.map((product) => (
-                  <Grid item={true} key={product.id}>
-                    <Product
-                      image={product.cover}
-                      name={product.name}
-                      rating={product.rating}
-                      price={product.price}
-                      addToCart={() => handleAddToCart(product)}
-                      addToWishes={() => handleAddToWishes(product.id)}
-                      isWish={isWish}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </Box>
+    <Container sx={{ marginTop: "1rem" }}>
+      <Grid container spacing={3}>
+        {loading ? "Loading..." : null}
+        {products.map((product) => (
+          <Grid item={true} key={product.id}>
+            <Product
+              id={product.id}
+              image={product.cover}
+              name={product.name}
+              rating={product.rating}
+              price={product.price}
+              description={product.description}
+              addToCart={() => handleAddToCart(product)}
+              addToWishes={() => handleAddToWishes(product.id)}
+              isWish={isWish}
+            />
           </Grid>
-        </Grid>
-      </Box>
+        ))}
+      </Grid>
     </Container>
   );
 };
