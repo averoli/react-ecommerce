@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import { CartContext } from "./CartContex";
 
 import "./App.css";
+import WishList from "./pages/WishList";
 
 export const currency = "€";
 

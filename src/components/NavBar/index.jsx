@@ -1,9 +1,10 @@
 import * as React from "react";
-import { useContext } from "react";
-import { Outlet } from "react-router-dom";
-
+import { useContext, useState } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { shoppingBagContext } from "../../CartContex";
-import IconBag from "../iconBag/index";
+
+import WishList from "../../pages/WishList";
+
 import {
   AppBar,
   Avatar,
@@ -12,21 +13,24 @@ import {
   Container,
   IconButton,
   Toolbar,
-  Typography,
 } from "@mui/material/";
-
-import { NavLink, useNavigate } from "react-router-dom";
-
-import logo_lips from "../../assets/icons/logo_lips.jpeg";
+import { HeaderBlock } from "../../ui/Container";
+import { Welcome } from "../../ui/Typography";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../../ui/Color";
+import IconBag from "../iconBag/index";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import logo_face from "../../assets/icons/logo_face.jpg";
 
 import "./style.css";
 
 const NavBar = () => {
+  const [open, setOpen] = useState(false);
+
   const pages = ["home", "shop", "about", "contact us"];
 
   const { cart } = useContext(shoppingBagContext);
-  console.log(cart);
+
   let activeStyle = {
     textDecoration: "underline",
   };
@@ -41,50 +45,68 @@ const NavBar = () => {
     navigate("/", { replace: true });
   };
 
+  const handleClickOpenClose = () => {
+    setOpen((prevState) => !prevState);
+  };
+
   return (
     <>
-      <AppBar position="sticky" color="inherit">
-        <Container maxWidth="xl">
-          <Toolbar>
-            <IconButton onClick={openMainPage}>
-              <Avatar alt="Logo Lips" src={logo_lips} />
-            </IconButton>
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "flex", justifyContent: "center" },
-              }}
-            >
-              {pages.map((page, index) => (
-                <NavLink
-                  key={index}
-                  to={page}
-                  style={({ isActive }) => (isActive ? activeStyle : undefined)}
-                  className="navlink"
+      <ThemeProvider theme={theme}>
+        <AppBar position="sticky" color="inherit">
+          <Container maxWidth="xl">
+            <Toolbar>
+              {/* <IconButton onClick={openMainPage}>
+                <Avatar alt="Logo Lips" src={logo_lips} />
+              </IconButton> */}
+              <HeaderBlock>
+                <IconButton>
+                  <Avatar alt="Logo face" src={logo_face} />
+                </IconButton>
+                <Welcome margin={1} color="rose">
+                  Welcome, Ahlov!
+                </Welcome>
+              </HeaderBlock>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: "none", md: "flex", justifyContent: "center" },
+                }}
+              >
+                {pages.map((page, index) => (
+                  <NavLink
+                    key={index}
+                    to={page}
+                    style={({ isActive }) =>
+                      isActive ? activeStyle : undefined
+                    }
+                    className="navlink"
+                  >
+                    {page}
+                  </NavLink>
+                ))}
+              </Box>
+              <HeaderBlock>
+                <IconButton
+                  aria-label="cart"
+                  sx={{ mx: 4 }}
+                  onClick={openShoppingCart}
                 >
-                  {page}
-                </NavLink>
-              ))}
-            </Box>
-
-            <IconButton
-              aria-label="cart"
-              sx={{ mx: 4 }}
-              onClick={openShoppingCart}
-            >
-              <Badge color="secondary" badgeContent={cart}>
-                <IconBag />
-              </Badge>
-            </IconButton>
-
-            <IconButton>
-              <Typography margin={1}>Welcome, Ahlov!</Typography>
-              <Avatar alt="Logo face" src={logo_face} />
-            </IconButton>
-          </Toolbar>
-        </Container>
-      </AppBar>
-      <Outlet />
+                  <Badge color="rose" badgeContent={cart}>
+                    <IconBag color="coffee" />
+                  </Badge>
+                </IconButton>
+                <IconButton onClick={handleClickOpenClose}>
+                  <Badge>
+                    <FavoriteIcon color="rose" />
+                  </Badge>
+                </IconButton>
+                <WishList open={open} handleClose={handleClickOpenClose} />
+              </HeaderBlock>
+            </Toolbar>
+          </Container>
+        </AppBar>
+        <Outlet />
+      </ThemeProvider>
     </>
   );
 };

@@ -6,14 +6,14 @@ const MainButton = styled("button")`
   justify-content: center;
   align-items: center;
   padding: 5px 15px;
-  border: 1px solid rgba(156, 39, 176, 0.5);
+  border: 1px solid #3D5B59;
   background-color: transparent;
-  color: #9c27b0;
+  color: #3D5B59;
   cursor: pointer;
   :hover {
     text-decoration: none;
-    background-color: rgba(156, 39, 176, 0.04);
-    border: 1px solid #9c27b0;
+    background-color: #EED6D3;
+    border: 1px solid #3D5B59;
   }
 `;
 
@@ -24,4 +24,7 @@ export const AddButton = styled(MainButton)`
 export const WishButton = styled(MainButton)`
   border-radius: 0 4px 4px 0;
   border-left: 0;
+  :hover {
+    background-color: transparent;
+  }
 `;

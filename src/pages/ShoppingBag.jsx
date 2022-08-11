@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import useCounter from "../hook/useCounter";
 import { shoppingBagContext } from "../CartContex";
-
+import { currency } from "../App";
 import { Box, Button, Container, Grid, Paper } from "@mui/material";
 
 import { v4 as uuid } from "uuid";
@@ -26,7 +26,6 @@ const ShoppingBag = ({ value = 0 }) => {
 
   return (
     <Container>
-      <h2>Shopping Bag</h2>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           {items.length === 0 && <h2>Shopping bag is empty</h2>}
@@ -64,7 +63,7 @@ const ShoppingBag = ({ value = 0 }) => {
                     color: "#482880",
                   }}
                 >
-                  {item.price}
+                  {item.price} {currency}
                 </Box>
                 <Box>
                   <Button onClick={substractValue}>-</Button>
@@ -85,7 +84,7 @@ const ShoppingBag = ({ value = 0 }) => {
                     alignItems: "center",
                   }}
                 >
-                  {item.quantity * item.price}
+                  {item.quantity * item.price} {currency}
                 </Box>
                 <Button onClick={() => handleDelete(item.id)}>x</Button>
               </Paper>
@@ -102,8 +101,10 @@ const ShoppingBag = ({ value = 0 }) => {
               m: 2,
             }}
           >
-            <Box>Total: {cart}</Box>
-            <Box> €</Box>
+            <Box>
+              Total: {cart} {currency}
+            </Box>
+            {/* <Box> €</Box> */}
           </Paper>
         </Grid>
       </Grid>

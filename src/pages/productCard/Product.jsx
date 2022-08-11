@@ -12,18 +12,21 @@ import { AddButton, WishButton } from "../../ui/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { currency } from "../../App";
+
 import "./productCard.css";
 
-const Product = ({id,
-  image,
-  name,
-  rating,
-  price,
-  description,
-  addToCart,
-  addToWishes,
-  isWish}) => {
- 
+const Product = (book) => {
+  const {
+    id,
+    image,
+    name,
+    rating,
+    price,
+    description,
+    addToCart,
+    addToWishes,
+    isWish,
+  } = book;
   return (
     <Card sx={{ maxWidth: 300, paddingBottom: "1rem" }}>
       <Link
@@ -44,7 +47,7 @@ const Product = ({id,
           value={rating}
           precision={0.5}
         />
-        <Typography variant="h5" color="#482880">
+        <Typography variant="h5" color="#67595E">
           {price} {currency}
         </Typography>
       </CardContent>
@@ -53,12 +56,12 @@ const Product = ({id,
           color="secondary"
           aria-label="medium secondary button group"
         >
-          <AddButton onClick={addToCart}>ADD TO CART</AddButton>
-          <WishButton onClick={addToWishes}>
-            {isWish === true ? (
-              <FavoriteIcon />
+          <AddButton onClick={() => addToCart(book)}>ADD TO CART</AddButton>
+          <WishButton onClick={() => addToWishes(book)}>
+            {isWish ? (
+              <FavoriteIcon color="rose" />
             ) : (
-              <FavoriteBorderOutlinedIcon color="secondary" />
+              <FavoriteBorderOutlinedIcon color="rose" />
             )}
           </WishButton>
         </ButtonGroup>
@@ -68,5 +71,3 @@ const Product = ({id,
 };
 
 export default Product;
-
-

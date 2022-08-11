@@ -2,4 +2,6 @@
     display: flex;
     margin: 0 20px;
     text-decoration: none;
+    text-transform: uppercase;
+    color: #67595e;
 }

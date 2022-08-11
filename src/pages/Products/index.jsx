@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Product from "../productCard/Product";
 import "./style.css";
-import { Box, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 const Products = ({ products }) => {
   const loadCartProducts = () => {
@@ -20,10 +20,11 @@ const Products = ({ products }) => {
   };
 
   const [isWish, setIsWish] = useState(false);
-  const [wishList, setWishList] = useState([]);
+ 
   const [cartProducts, setCartProducts] = useState(() => loadCartProducts());
-  const [wishProducts, setWishProducts] = useState([]);
 
+  let [wishProducts, setWishProducts] = useState([]);
+  console.log("cartProducts", cartProducts);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -51,10 +52,20 @@ const Products = ({ products }) => {
     }
   }
 
-  const handleAddToWishes = (id) => {
-    console.log(id);
-    setIsWish((prevState) => !prevState);
-    console.log(isWish);
+  useEffect(() => {
+    localStorage.setItem("wish", JSON.stringify(wishProducts));
+  }, [wishProducts]);
+
+  const handleAddToWishes = (product) => {
+    let existWish = wishProducts.find((itemWish) => itemWish.id === product.id);
+    if (!existWish) {
+      setWishProducts([...wishProducts, product]);
+      setIsWish((prevState) => !prevState);
+    } else {
+      wishProducts = wishProducts.filter((item) => item.id != existWish.id);
+      setWishProducts(wishProducts);
+      setIsWish((prevState) => !prevState);
+    }
   };
 
   return (
@@ -70,8 +81,8 @@ const Products = ({ products }) => {
               rating={product.rating}
               price={product.price}
               description={product.description}
-              addToCart={() => handleAddToCart(product)}
-              addToWishes={() => handleAddToWishes(product.id)}
+              addToCart={handleAddToCart}
+              addToWishes={handleAddToWishes}
               isWish={isWish}
             />
           </Grid>
